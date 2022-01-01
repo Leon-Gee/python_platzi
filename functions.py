@@ -6,22 +6,32 @@
 
 #if __name__ == "__main__":
 #	print_special_message()
-def hi_message(message):
-	print("hi")
-	print("how are u")
-	print(message)
-	print("adios")
+#def hi_message(message):
+#	print("hi")
+#	print("how are u")
+#	print(message)
+#	print("adios")
 
-option = int(input("Choose an option (1,2,3) : "))
+#option = int(input("Choose an option (1,2,3) : "))
 
-if option == 1:
-	hi_message("You choosed option 1")
+#if option == 1:
+#	hi_message("You choosed option 1")
 
-elif option == 2:
-	hi_message("You choosed option 2")
+#elif option == 2:
+#	hi_message("You choosed option 2")
 
-elif option == 3:
-	hi_message("You choosed option 3")
+#elif option == 3:
+#	hi_message("You choosed option 3")
 
-else:
-	print("Choose a proper option")
+#else:
+#	print("Choose a proper option")
+
+
+
+def sum(a,b):
+	print("sum 2 nums")
+	return a + b
+
+
+if __name__ == "__main__":
+	print(sum(2,5))

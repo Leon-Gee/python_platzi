@@ -1,0 +1,18 @@
+def currency_to_dollars(currency,dollar_value):
+	quantity_pesos= float(input("how many pesos are you holding?"))
+	dollars = quantity_pesos / dollar_value
+	dollars = round(dollars,2)
+	return "You have $ " + str(dollars) ⁺ "dollars"
+
+
+
+if __name__ == "__main__":
+	menu = """
+	Welcome to our currency converter
+
+	1.- Colombian Pesos
+	2.- Argetinian Pesos
+	3.- Mexican Pesos
+	
+	Elige una opcion: """
+	"""
