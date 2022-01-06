@@ -1,21 +1,75 @@
 clients = 'leon, oswaldo,'
 
-def create_client(client_name):
-	global clients
 
-	if client_name not in clients:
+def create_client(client_name):
+	""" creates and saves a client
+	param str client_name
+	"""
+	global clients
+	if _verify_client(client_name = client_name):
+		print('The client is already in the agenda!')
+	else:
 		clients += client_name
 		_add_coma()
-	else:
-		print('The client is already in the agenda!')
-def _add_coma():
+
+
+
+def update_client(client_name, updated_client_name):
+	"""updates a client
+	param str client_name name of the client wich is updated
+	param str updated_client_name the new name of the client
+	"""
 	global clients
-	clients += ','
+
+	if _verify_client(client_name = client_name):
+		clients = clients.replace(client_name + ',',updated_client_name + ',')
+	else:
+		_client_not_found
+
+
+def delete_client(client_name):
+	"""deletes a client
+	param str client_name the name of the client wich is beign deleted
+	"""
+	global clients
+	if _verify_client(client_name = client_name):
+		clients = clients.replace(client_name + ',' , '')
+		clients.strip()
+	else:
+		_client_not_found()
 
 
 def list_clients():
 	global clients
 	print(clients)
+
+
+def _add_coma():
+	global clients
+	clients += ','
+
+
+
+def _get_client_name():
+	return input('What is the client name: ')
+
+
+def _client_not_found():
+	print("The client its not in the agenda")
+
+
+def _verify_client(client_name):
+	"""verifies that a client its in the agenda
+	param str client_name
+	returns bool true if the client its in the list
+	"""
+
+	global clients
+
+	if client_name in clients:
+		return True
+	else:
+		return False
 
 
 def print_welcome():
@@ -26,32 +80,20 @@ def print_welcome():
 	print('COMMAND: ')
 
 
-def get_client_name():
-	return input('What is the client name: ')
-
-def update_client(client_name, updated_client_name):
-	global clients
-
-	if client_name in clients:
-		clients = clients.replace(client_name + ',',updated_client_name + ',')
-	else:
-		print('Client its not in the agenda')
-
-
 if __name__ == '__main__':
 	print_welcome()
 	command = input().upper()
 
 	if command == 'C':
-		create_client(client_name = get_client_name())
+		create_client(client_name = _get_client_name())
 		list_clients()
 
 	elif command == 'D':
-		pass
-
+		delete_client(client_name = _get_client_name())
+		list_clients()
 	elif command == 'U':
 		new_client_name = input('Whats the new name of the client: ')
-		update_client(client_name = get_client_name(), updated_client_name = new_client_name)
+		update_client(client_name = _get_client_name(), updated_client_name = new_client_name)
 		list_clients()
 	else:
 		print('Invalid command')
