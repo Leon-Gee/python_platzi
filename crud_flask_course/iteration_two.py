@@ -39,6 +39,15 @@ def delete_client(client_name):
 		_client_not_found()
 
 
+def search_client(client_name):
+	clients_list = clients.split(',')
+
+	for client in clients_list:
+		if client != client_name:
+			continue
+		else:
+			print(f'The client {client_name} is in the list')
+
 def list_clients():
 	global clients
 	print(clients)
@@ -76,7 +85,7 @@ def print_welcome():
 	print('welcome to our client agenda')
 	print('*'*50)
 	print('What would you want to do today?:)')
-	print('[C]reate client \n [D]elete client \n [U]pdate client')
+	print('[C]reate client \n [D]elete client \n [U]pdate client \n [S]earch Client')
 	print('COMMAND: ')
 
 
@@ -95,5 +104,7 @@ if __name__ == '__main__':
 		new_client_name = input('Whats the new name of the client: ')
 		update_client(client_name = _get_client_name(), updated_client_name = new_client_name)
 		list_clients()
+	elif command == 'S':
+		search_client(client_name = _get_client_name())
 	else:
 		print('Invalid command')
