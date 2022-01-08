@@ -1,0 +1,31 @@
+
+
+
+def _print_welcome():
+	print("*" * 50)
+	print("Welcome to my dictionary student test")
+	print(" 1.Add a student \n 2.Delete a student")
+	print(" 3.List all students \n 4.Update a student")
+	print(" 5.Search an stundent by his control number \n 6.Search an student by his name")
+	print(" 7. Exit")	
+	print("*" * 50)
+
+
+def _get_command():
+	command = None
+	while not command:
+		command = input("What would you want to do?")
+	return command
+
+
+def _agenda_run():
+	command = _get_command()
+	switch={
+	'1':_print_welcome()
+	
+	}
+
+
+
+if __name__ == "__main__":
+	_agenda_run()
