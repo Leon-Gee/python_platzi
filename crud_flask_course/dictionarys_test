@@ -1,4 +1,20 @@
+class Student():
+	name = ""
+	age = 0
 
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
+
+
+school_students = {}
+
+
+
+def add_student(name, age):
+	global school_students 
+	student = Student(name, age)
+	school_students[len(school_students)] = student
 
 
 def _print_welcome():
@@ -19,11 +35,15 @@ def _get_command():
 
 
 def _agenda_run():
-	command = _get_command()
-	switch={
-	'1':_print_welcome()
-	
-	}
+	while (True):
+		_print_welcome()
+		command = _get_command()
+
+		switch={
+		'1':add_student()
+		'2':delete_student()
+		'3':list_student()
+		}
 
 
 
