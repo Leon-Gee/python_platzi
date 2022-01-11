@@ -47,6 +47,7 @@ def search_client(client_name):
 			continue
 		else:
 			print(f'The client {client_name} is in the list')
+	print(f'The client {client_name} is not in the list')
 
 def list_clients():
 	global clients
@@ -60,7 +61,10 @@ def _add_coma():
 
 
 def _get_client_name():
-	return input('What is the client name: ')
+	client_name = None
+	while not client_name:
+		client_name = input('What is the client name: ')
+	return client_name
 
 
 def _client_not_found():
@@ -85,26 +89,28 @@ def print_welcome():
 	print('welcome to our client agenda')
 	print('*'*50)
 	print('What would you want to do today?:)')
-	print('[C]reate client \n [D]elete client \n [U]pdate client \n [S]earch Client')
+	print(' [C]reate client \n [D]elete client \n [U]pdate client \n [S]earch Client \n [E]xit')
 	print('COMMAND: ')
 
 
 if __name__ == '__main__':
-	print_welcome()
-	command = input().upper()
+	while(True):
+		print_welcome()
+		command = input().upper()
+		if command == 'C':
+			create_client(client_name = _get_client_name())
+			list_clients()
 
-	if command == 'C':
-		create_client(client_name = _get_client_name())
-		list_clients()
-
-	elif command == 'D':
-		delete_client(client_name = _get_client_name())
-		list_clients()
-	elif command == 'U':
-		new_client_name = input('Whats the new name of the client: ')
-		update_client(client_name = _get_client_name(), updated_client_name = new_client_name)
-		list_clients()
-	elif command == 'S':
-		search_client(client_name = _get_client_name())
-	else:
-		print('Invalid command')
+		elif command == 'D':
+			delete_client(client_name = _get_client_name())
+			list_clients()
+		elif command == 'U':
+			new_client_name = input('Whats the new name of the client: ')
+			update_client(client_name = _get_client_name(), updated_client_name = new_client_name)
+			list_clients()
+		elif command == 'S':
+			search_client(client_name = _get_client_name())
+		elif command == 'E':
+			break
+		else:
+			print('Invalid command')

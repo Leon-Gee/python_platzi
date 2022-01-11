@@ -13,9 +13,10 @@ clients = [
 	}
 ]
 
+
 def create_client(client):
 	""" creates and saves a client
-	param str client_name
+	param
 	"""
 	global clients
 
@@ -27,8 +28,6 @@ def create_client(client):
 
 def update_client(client_name, updated_client_name):
 	"""updates a client
-	param str client_name name of the client wich is updated
-	param str updated_client_name the new name of the client
 	"""
 	global clients
 
@@ -41,7 +40,6 @@ def update_client(client_name, updated_client_name):
 
 def delete_client(client_name):
 	"""deletes a client
-	param str client_name the name of the client wich is beign deleted
 	"""
 	global clients
 	if _verify_client(client_name = client_name):
@@ -61,9 +59,20 @@ def search_client(client_name):
 
 
 def list_clients():
-	global clients
 	for idx, client in enumerate(clients):
-		print('{}: {}'.format(idx,client))
+		print('{uid} | {name} | {company} | {email} | {position}'.format(
+		uid = idx,
+		name = client['name'],
+		company = client['company'],
+		email = client['email'],
+		position = client['position']))
+
+def _get_client_field(field_name):
+	field = None
+
+	while not field:
+		field = input(f'What is the {field_name} of the client? ')
+	return field
 
 
 def _get_client_name():
@@ -79,8 +88,6 @@ def _client_not_found():
 
 def _verify_client(client_name):
 	"""verifies that a client its in the agenda
-	param str client_name
-	returns bool true if the client its in the list
 	"""
 
 	global clients
@@ -104,7 +111,13 @@ if __name__ == '__main__':
 		print_welcome()
 		command = input().upper()
 		if command == 'C':
-			c
+			client = {
+				'name': _get_client_field(field_name = 'name'),
+				'company': _get_client_field(field_name = 'company'),
+				'email': _get_client_field(field_name = 'email'),
+				'position': _get_client_field(field_name = 'position')
+			}
+			create_client(client)
 			list_clients()
 
 		elif command == 'D':
