@@ -42,10 +42,18 @@ def delete_client(client_name):
 	"""deletes a client
 	"""
 	global clients
-	if _verify_client(client_name = client_name):
-		clients.remove(client_name)
-	else:
-		_client_not_found()
+	if _check_client_name(client_name = client_name):
+		for idx, client in enumerate(clients):
+			if client_name == client['name']:
+				clients.pop(idx)
+				break
+
+def _check_client_name(client_name):
+	for client in clients:
+		if client_name == client['name']:
+			return True
+
+	return False
 
 
 def search_client(client_name):
@@ -66,6 +74,7 @@ def list_clients():
 		company = client['company'],
 		email = client['email'],
 		position = client['position']))
+
 
 def _get_client_field(field_name):
 	field = None
@@ -124,8 +133,12 @@ if __name__ == '__main__':
 			delete_client(client_name = _get_client_name())
 			list_clients()
 		elif command == 'U':
-			new_client_name = input('Whats the new name of the client: ')
-			update_client(client_name = _get_client_name(), updated_client_name = new_client_name)
+			client = {
+				'name': _get_client_field(field_name = 'name'),
+				'company': _get_client_field(field_name = 'company'),
+				'email': _get_client_field(field_name = 'email'),
+				'position': _get_client_field(field_name = 'position')
+			}
 			list_clients()
 		elif command == 'S':
 			search_client(client_name = _get_client_name())
