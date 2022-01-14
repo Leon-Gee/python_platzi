@@ -26,27 +26,28 @@ def create_client(client):
 		print('The client is already in the agenda!')
 
 
-def update_client(client_name, updated_client_name):
+def update_client(client_name):
 	"""updates a client
 	"""
 	global clients
 
-	if _verify_client(client_name = client_name):
-		index = clients.index(client_name)
-		clients[index] = updated_client_name
-	else:
-		_client_not_found
+	if _check_client_name(client_name = client_name):
+		for idx, client in enumerate(clients):
+			if client_name == client['name']:
+				clients[idx] = client_input()
 
 
 def delete_client(client_name):
 	"""deletes a client
 	"""
 	global clients
+
 	if _check_client_name(client_name = client_name):
 		for idx, client in enumerate(clients):
 			if client_name == client['name']:
 				clients.pop(idx)
 				break
+
 
 def _check_client_name(client_name):
 	for client in clients:
@@ -56,14 +57,29 @@ def _check_client_name(client_name):
 	return False
 
 
-def search_client(client_name):
+def client_input():
+	client = {
+		'name': _get_client_field(field_name = 'name'),
+		'company': _get_client_field(field_name = 'company'),
+		'email': _get_client_field(field_name = 'email'),
+		'position': _get_client_field(field_name = 'position')
+		}
+	return client
 
-	for client in clients:
-		if client != client_name:
-			continue
-		else:
-			print(f'The client {client_name} is in the list')
-	print(f'The client {client_name} is not in the list')
+
+
+def search_client(client_name):
+	if _check_client_name(client_name = client_name):
+		for idx, client in enumerate(clients):
+			if client_name == client['name']:
+				print('{uid} | {name} | {company} | {email} | {position}'.format(
+				uid = idx,
+				name = client['name'],
+				company = client['company'],
+				email = client['email'],
+				position = client['position']))
+	else:
+		print(f'The client {client_name} is not in the list')
 
 
 def list_clients():
@@ -120,28 +136,20 @@ if __name__ == '__main__':
 		print_welcome()
 		command = input().upper()
 		if command == 'C':
-			client = {
-				'name': _get_client_field(field_name = 'name'),
-				'company': _get_client_field(field_name = 'company'),
-				'email': _get_client_field(field_name = 'email'),
-				'position': _get_client_field(field_name = 'position')
-			}
+			client = client_input()
 			create_client(client)
 			list_clients()
 
 		elif command == 'D':
 			delete_client(client_name = _get_client_name())
 			list_clients()
+
 		elif command == 'U':
-			client = {
-				'name': _get_client_field(field_name = 'name'),
-				'company': _get_client_field(field_name = 'company'),
-				'email': _get_client_field(field_name = 'email'),
-				'position': _get_client_field(field_name = 'position')
-			}
+			update_client(_get_client_name())
 			list_clients()
+
 		elif command == 'S':
-			search_client(client_name = _get_client_name())
+			search_client(_get_client_name())
 		elif command == 'E':
 			break
 		else:
